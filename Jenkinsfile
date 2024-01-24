@@ -2,24 +2,18 @@ pipeline {
     agent any
 
     stages {
-        stage('Checkout') {
-            steps {
-                git 'https://github.com/beeru405/simple-calculator-AndroidApp.git'
-            }
-        }
-
-        stage('Build APK') {
+        stage('Build') {
             steps {
                 script {
-                    sh './gradlew assembleDebug'
+                    sh 'mvn clean package'
                 }
             }
         }
 
-        stage('Run UI Tests') {
+        stage('Test') {
             steps {
                 script {
-                    sh './gradlew connectedAndroidTest'
+                    sh 'mvn test'
                 }
             }
         }
