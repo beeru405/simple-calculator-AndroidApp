@@ -8,18 +8,18 @@ pipeline {
             }
         }
 
-        stage('Install Dependencies') {
+        stage('Build APK') {
             steps {
                 script {
-                    sh 'pip install -r requirements.txt'
+                    sh './gradlew assembleDebug'
                 }
             }
         }
 
-        stage('Run Tests') {
+        stage('Run UI Tests') {
             steps {
                 script {
-                    sh 'python -m unittest discover tests'
+                    sh './gradlew connectedAndroidTest'
                 }
             }
         }
