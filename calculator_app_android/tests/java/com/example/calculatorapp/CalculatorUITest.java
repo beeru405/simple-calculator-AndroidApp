@@ -10,7 +10,25 @@ public class CalculatorTest {
 
     @Test
     public void testAddition() {
-        // Existing test code...
+        System.setProperty("webdriver.chrome.driver", "/path/to/chromedriver");
+        WebDriver driver = new ChromeDriver();
+
+        try {
+            driver.get("http://localhost:8080/calculator-app/");
+
+            WebElement inputA = driver.findElement(By.id("inputA"));
+            WebElement inputB = driver.findElement(By.id("inputB"));
+            WebElement addButton = driver.findElement(By.id("addButton"));
+            WebElement result = driver.findElement(By.id("result"));
+
+            inputA.sendKeys("5");
+            inputB.sendKeys("3");
+            addButton.click();
+
+            assertEquals("8", result.getText());
+        } finally {
+            driver.quit();
+        }
     }
 
     @Test
@@ -30,7 +48,7 @@ public class CalculatorTest {
             inputB.sendKeys("3");
             subtractButton.click();
 
-            assertEquals("6", result.getText());
+            assertEquals("5", result.getText());
         } finally {
             driver.quit();
         }
@@ -82,5 +100,31 @@ public class CalculatorTest {
         }
     }
 
-    // Add more test cases as needed...
+    @Test
+    public void testDivisionByZero() {
+        System.setProperty("webdriver.chrome.driver", "/path/to/chromedriver");
+        WebDriver driver = new ChromeDriver();
+
+        try {
+            driver.get("http://localhost:8080/calculator-app/");
+
+            WebElement inputA = driver.findElement(By.id("inputA"));
+            WebElement inputB = driver.findElement(By.id("inputB"));
+            WebElement divideButton = driver.findElement(By.id("divideButton"));
+            WebElement result = driver.findElement(By.id("result"));
+            WebElement errorMessage = driver.findElement(By.id("errorMessage"));
+
+            inputA.sendKeys("10");
+            inputB.sendKeys("0"); // Attempting to divide by zero
+            divideButton.click();
+
+            // Ensure the application displays an error message
+            assertEquals("Cannot divide by zero", errorMessage.getText());
+
+            // Ensure the result field remains unchanged
+            assertEquals("", result.getText());
+        } finally {
+            driver.quit();
+        }
+    }
 }
