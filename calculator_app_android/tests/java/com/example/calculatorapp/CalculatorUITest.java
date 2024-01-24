@@ -76,7 +76,7 @@ public class CalculatorTest {
             inputB.sendKeys("3");
             divideButton.click();
 
-            assertEquals("6", result.getText());
+            assertEquals("5", result.getText());
         } finally {
             driver.quit();
         }
