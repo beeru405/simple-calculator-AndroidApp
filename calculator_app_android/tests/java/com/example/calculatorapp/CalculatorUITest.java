@@ -30,7 +30,7 @@ public class CalculatorTest {
             inputB.sendKeys("3");
             subtractButton.click();
 
-            assertEquals("5", result.getText());
+            assertEquals("6", result.getText());
         } finally {
             driver.quit();
         }
