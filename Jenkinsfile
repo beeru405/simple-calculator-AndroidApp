@@ -24,10 +24,4 @@ pipeline {
             }
         }
     }
-
-    post {
-        always {
-            // Clean up or notify if needed
-        }
-    }
 }
