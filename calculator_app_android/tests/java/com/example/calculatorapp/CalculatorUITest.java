@@ -25,6 +25,7 @@ public class CalculatorTest {
             inputB.sendKeys("3");
             addButton.click();
 
+            // Ensure the result is as expected
             assertEquals("8", result.getText());
         } finally {
             driver.quit();
@@ -48,6 +49,7 @@ public class CalculatorTest {
             inputB.sendKeys("3");
             subtractButton.click();
 
+            // Ensure the result is as expected
             assertEquals("5", result.getText());
         } finally {
             driver.quit();
@@ -71,6 +73,7 @@ public class CalculatorTest {
             inputB.sendKeys("5");
             multiplyButton.click();
 
+            // Ensure the result is as expected
             assertEquals("20", result.getText());
         } finally {
             driver.quit();
@@ -94,6 +97,7 @@ public class CalculatorTest {
             inputB.sendKeys("3");
             divideButton.click();
 
+            // Ensure the result is as expected
             assertEquals("5", result.getText());
         } finally {
             driver.quit();
@@ -119,10 +123,15 @@ public class CalculatorTest {
             divideButton.click();
 
             // Ensure the application displays an error message
-            assertEquals("Cannot divide by zero", errorMessage.getText());
+            String actualErrorMessage = errorMessage.getText();
+            String expectedErrorMessage = "Cannot divide by zero";
+            assertEquals(expectedErrorMessage, actualErrorMessage);
 
             // Ensure the result field remains unchanged
             assertEquals("", result.getText());
+        } catch (AssertionError e) {
+            // Mark the build as failed if any assertion fails
+            error("Test failed: " + e.getMessage());
         } finally {
             driver.quit();
         }
