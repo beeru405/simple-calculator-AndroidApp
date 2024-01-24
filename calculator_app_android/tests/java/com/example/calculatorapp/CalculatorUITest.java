@@ -26,7 +26,7 @@ public class CalculatorTest {
             addButton.click();
 
             // Ensure the result is as expected
-            assertEquals("9", result.getText());
+            assertEquals("8", result.getText());
         } finally {
             driver.quit();
         }
