@@ -13,9 +13,14 @@ pipeline {
         stage('Test') {
             steps {
                 script {
-                    sh 'mvn test'
+                    // Run tests using Maven
+                    def testResult = sh(script: 'mvn test', returnStatus: true)
+                    
                     // Check the test results and mark the build as failed if any test failed
-                    currentBuild.result = currentBuild.resultIsBetterOrEqualTo('UNSTABLE') ? currentBuild.result : 'FAILURE'
+                    if (testResult != 0) {
+                        currentBuild.result = 'FAILURE'
+                        error('Tests failed. Marking the build as FAILURE.')
+                    }
                 }
             }
         }
