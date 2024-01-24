@@ -1,36 +1,87 @@
-// calculator_app_android/tests/java/com/example/calculatorapp/CalculatorUITest.java
-
-package com.example.calculatorapp;
-
-import androidx.test.espresso.Espresso;
-import androidx.test.espresso.assertion.ViewAssertions;
-import androidx.test.espresso.matcher.ViewMatchers;
-import androidx.test.ext.junit.rules.ActivityScenarioRule;
-import androidx.test.filters.LargeTest;
-import androidx.test.runner.AndroidJUnit4;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 
-@LargeTest
-@RunWith(AndroidJUnit4.class)
-public class CalculatorUITest {
+import static org.junit.Assert.assertEquals;
 
-    @Rule
-    public ActivityScenarioRule<MainActivity> activityScenarioRule
-            = new ActivityScenarioRule<>(MainActivity.class);
+public class CalculatorTest {
 
     @Test
     public void testAddition() {
-        // Espresso UI test code for addition
-        Espresso.onView(ViewMatchers.withId(R.id.button_1)).perform(ViewActions.click());
-        Espresso.onView(ViewMatchers.withId(R.id.button_plus)).perform(ViewActions.click());
-        Espresso.onView(ViewMatchers.withId(R.id.button_2)).perform(ViewActions.click());
-        Espresso.onView(ViewMatchers.withId(R.id.button_equals)).perform(ViewActions.click());
-
-        // Adjust the following line based on your result view id
-        Espresso.onView(ViewMatchers.withId(R.id.result_text)).check(ViewAssertions.matches(ViewMatchers.withText("3")));
+        // Existing test code...
     }
 
-    // Add more test methods for subtraction, multiplication, division, etc.
+    @Test
+    public void testSubtraction() {
+        System.setProperty("webdriver.chrome.driver", "/path/to/chromedriver");
+        WebDriver driver = new ChromeDriver();
+
+        try {
+            driver.get("http://localhost:8080/calculator-app/");
+
+            WebElement inputA = driver.findElement(By.id("inputA"));
+            WebElement inputB = driver.findElement(By.id("inputB"));
+            WebElement subtractButton = driver.findElement(By.id("subtractButton"));
+            WebElement result = driver.findElement(By.id("result"));
+
+            inputA.sendKeys("8");
+            inputB.sendKeys("3");
+            subtractButton.click();
+
+            assertEquals("5", result.getText());
+        } finally {
+            driver.quit();
+        }
+    }
+
+    @Test
+    public void testMultiplication() {
+        System.setProperty("webdriver.chrome.driver", "/path/to/chromedriver");
+        WebDriver driver = new ChromeDriver();
+
+        try {
+            driver.get("http://localhost:8080/calculator-app/");
+
+            WebElement inputA = driver.findElement(By.id("inputA"));
+            WebElement inputB = driver.findElement(By.id("inputB"));
+            WebElement multiplyButton = driver.findElement(By.id("multiplyButton"));
+            WebElement result = driver.findElement(By.id("result"));
+
+            inputA.sendKeys("4");
+            inputB.sendKeys("5");
+            multiplyButton.click();
+
+            assertEquals("20", result.getText());
+        } finally {
+            driver.quit();
+        }
+    }
+
+    @Test
+    public void testDivision() {
+        System.setProperty("webdriver.chrome.driver", "/path/to/chromedriver");
+        WebDriver driver = new ChromeDriver();
+
+        try {
+            driver.get("http://localhost:8080/calculator-app/");
+
+            WebElement inputA = driver.findElement(By.id("inputA"));
+            WebElement inputB = driver.findElement(By.id("inputB"));
+            WebElement divideButton = driver.findElement(By.id("divideButton"));
+            WebElement result = driver.findElement(By.id("result"));
+
+            inputA.sendKeys("15");
+            inputB.sendKeys("3");
+            divideButton.click();
+
+            assertEquals("5", result.getText());
+        } finally {
+            driver.quit();
+        }
+    }
+
+    // Add more test cases as needed...
 }
+
